@@ -1,4 +1,8 @@
 package com.springbootdemo.customer;
 
-public record CustomerDataRequest {
+public record CustomerUpdateRequest (
+        String name,
+        String email,
+        Integer age
+) {
 }
