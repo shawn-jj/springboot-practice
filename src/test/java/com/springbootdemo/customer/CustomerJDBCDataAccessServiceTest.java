@@ -107,7 +107,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     }
 
     @Test
-    void existCustomerWithId() {
+    void existPersonWithId() {
         //Given
         Random random = new Random();
         String email = "_email@email.com_" + random.nextInt();
