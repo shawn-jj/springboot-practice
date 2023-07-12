@@ -42,7 +42,7 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Integer customerId){
-        if(customerDao.existPersonWithId(customerId)) {
+        if(!(customerDao.existPersonWithId(customerId))) {
             throw new ResourceNotFoundException("customer with id [" + customerId + "] not found");
         }
         customerDao.deleteCustomerById(customerId);
@@ -53,17 +53,17 @@ public class CustomerService {
 
         boolean changes = false;
 
-        if(updateRequest.name() != null && updateRequest.name().equals(customer.getName())) {
+        if(updateRequest.name() != null && !updateRequest.name().equals(customer.getName())) {
             customer.setName(updateRequest.name());
             changes = true;
         }
 
-        if(updateRequest.age() != null && updateRequest.age().equals(customer.getAge())) {
+        if(updateRequest.age() != null && !updateRequest.age().equals(customer.getAge())) {
             customer.setAge(updateRequest.age());
             changes = true;
         }
 
-        if(updateRequest.email() != null && updateRequest.email().equals(customer.getEmail())) {
+        if(updateRequest.email() != null && !updateRequest.email().equals(customer.getEmail())) {
             if(customerDao.existPersonWithEmail(updateRequest.email())) {
                 throw new DuplicateResourceException("email already taken");
             }
@@ -72,7 +72,7 @@ public class CustomerService {
         }
 
         if(!changes) {
-            throw new RequestValidationException("no data found");
+            throw new RequestValidationException("no data changes found");
         }
         else {
             customerDao.updateCustomer(customer);
