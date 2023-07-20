@@ -14,6 +14,19 @@ services:
       - db
     restart: unless-stopped
 
+  spring-boot-demo-api:
+    container_name: spring-boot-demo-api
+    image: caushk/spring-boot-demo-api:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    networks:
+      - db
+    depends_on:
+      - db
+    restart: unless-stopped
+    command:
+      - --spring.datasource.url=jdbc:postgresql://db:5432/customer
+
 networks:
   db:
     driver: bridge
